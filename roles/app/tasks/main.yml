@@ -1,3 +1,21 @@
-#SPDX-License-Identifier: MIT-0
 ---
-# tasks file for roles/app
+- name: Clone GitHub Repository
+  git:
+    repo: "https://github.com/Arunps1105/multi-tier-webapp.git"
+    dest: /tmp/multi-tier-webapp
+    version: main
+    force: yes
+
+- name: Copy Website Files
+  copy:
+    src: /tmp/multi-tier-webapp/website/
+    dest: /var/www/html/
+    remote_src: yes
+    owner: www-data
+    group: www-data
+    mode: '0755'
+
+- name: Restart Nginx
+  service:
+    name: nginx
+    state: restarted
