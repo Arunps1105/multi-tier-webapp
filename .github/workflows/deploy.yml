@@ -6,12 +6,25 @@ on:
       - main
 
 jobs:
-  deploy:
+  validate:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Show Repository Files
-        run: ls -la
+      - name: Install Ansible
+        run: |
+          sudo apt update
+          sudo apt install -y ansible python3-pip
+          pip3 install ansible-lint
+
+      - name: YAML Validation
+        run: |
+          find . -type f \( -name "*.yml" -o -name "*.yaml" \) -exec ansible-playbook --syntax-check {} \; || true
+
+      - name: Ansible Lint
+        run: ansible-lint
+
+      - name: Playbook Syntax Check
+        run: ansible-playbook --syntax-check site.yml
