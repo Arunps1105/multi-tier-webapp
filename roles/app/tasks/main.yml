@@ -1,21 +1,18 @@
 ---
 - name: Clone GitHub Repository
-  git:
+  ansible.builtin.git:
     repo: "https://github.com/Arunps1105/multi-tier-webapp.git"
-    dest: /tmp/multi-tier-webapp
+    dest: /var/www/html/multi-tier-webapp
     version: main
-    force: yes
+    force: true
 
 - name: Copy Website Files
-  copy:
-    src: /tmp/multi-tier-webapp/website/
-    dest: /var/www/html/
-    remote_src: yes
-    owner: www-data
-    group: www-data
-    mode: '0755'
+  ansible.builtin.copy:
+    src: /var/www/html/multi-tier-webapp/
+    dest: /usr/share/nginx/html/
+    remote_src: true
 
 - name: Restart Nginx
-  service:
+  ansible.builtin.service:
     name: nginx
     state: restarted
