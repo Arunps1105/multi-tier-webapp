@@ -12,5 +12,7 @@
 - hosts: web
   become: yes
   roles:
+    - firewall
     - nginx
     - app
+    - docker
