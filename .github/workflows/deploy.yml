@@ -19,9 +19,8 @@ jobs:
           sudo apt install -y ansible python3-pip
           pip3 install ansible-lint
 
-      - name: YAML Validation
-        run: |
-          find . -type f \( -name "*.yml" -o -name "*.yaml" \) -exec ansible-playbook --syntax-check {} \; || true
+      - name: Playbook Syntax Check
+        run: ansible-playbook --syntax-check site.yml
 
       - name: Ansible Lint
         run: ansible-lint

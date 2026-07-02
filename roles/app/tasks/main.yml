@@ -11,6 +11,9 @@
     src: /var/www/html/multi-tier-webapp/
     dest: /usr/share/nginx/html/
     remote_src: true
+    owner: root
+    group: root
+    mode: "0755"
 
 - name: Restart Nginx
   ansible.builtin.service:
