@@ -1,16 +1,19 @@
 ---
-- hosts: all
-  become: yes
+- name: Configure all servers
+  hosts: all
+  become: true
   roles:
     - common
 
-- hosts: db
-  become: yes
+- name: Configure database server
+  hosts: db
+  become: true
   roles:
     - mysql
 
-- hosts: web
-  become: yes
+- name: Configure web server
+  hosts: web
+  become: true
   roles:
     - firewall
     - nginx
